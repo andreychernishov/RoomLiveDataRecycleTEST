@@ -22,16 +22,15 @@ class NewWordActivity : AppCompatActivity() {
         val button: Button = findViewById(R.id.button_save)
         button.setOnClickListener {
             val replyIntent = Intent()
-            val replyIntent1 = Intent()
+           // val replyIntent1 = Intent()
             if(TextUtils.isEmpty(editWordView.text)){
                 setResult(Activity.RESULT_CANCELED,replyIntent)
             }else{
                 val word = editWordView.text.toString()
-                val word1 = editWordView1.text.toString()
+               // val word1 = editWordView1.text.toString()
                 replyIntent.putExtra(EXTRA_REPLY,word)
-                replyIntent1.putExtra(EXTRA_REPLY,word1)
+              //  replyIntent.putExtra(EXTRA_REPLY,word) // зробить ще один ключ
                 setResult(Activity.RESULT_OK,replyIntent)
-                setResult(Activity.RESULT_OK,replyIntent1)
             }
             finish()
         }

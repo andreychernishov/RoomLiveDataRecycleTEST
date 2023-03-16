@@ -18,8 +18,8 @@ class WordViewModel(private val repository: WordRepository): ViewModel() {
      * Launching a new coroutine to insert the data in a non-blocking way
      */
 
-    fun insert(word: Word?, word1: Word?) = viewModelScope.launch{
-        repository.insert(word, word1)
+    fun insert(word: Word) = viewModelScope.launch{
+        repository.insert(word)
     }
 
 }

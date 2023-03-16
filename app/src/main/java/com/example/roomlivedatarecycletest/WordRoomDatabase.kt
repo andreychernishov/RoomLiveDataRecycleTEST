@@ -24,8 +24,8 @@ import kotlinx.coroutines.launch
 
                     wordDao.deleteAll()
                     var word = Word("word")
-                    var word1 = Word("word1")
-                    wordDao.insert(word,word1)
+                   // var word1 = Word("word1")
+                    wordDao.insert(word)
                 }
             }
         }

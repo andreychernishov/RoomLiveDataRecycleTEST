@@ -20,7 +20,7 @@ class WordRepository(private val wordDao: WordDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(word: Word?, word1: Word?){
-        wordDao.insert(word, word1 )
+    suspend fun insert(word: Word){
+        wordDao.insert(word)
     }
 }
