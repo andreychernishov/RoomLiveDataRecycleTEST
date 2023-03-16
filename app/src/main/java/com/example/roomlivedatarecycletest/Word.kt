@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "word_table")
 data class Word(@PrimaryKey
-    @ColumnInfo(name = "word") val word: String // добавить колонку і зробить міграцію
-    //
+    @ColumnInfo(name = "word") val word: String,
+    @ColumnInfo(name = "description") val description: String
 )

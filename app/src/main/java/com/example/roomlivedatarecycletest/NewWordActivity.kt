@@ -18,18 +18,19 @@ class NewWordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_word)
 
         editWordView = findViewById(R.id.edit_word)
-
+        editWordView1 = findViewById(R.id.edit_word1)
         val button: Button = findViewById(R.id.button_save)
         button.setOnClickListener {
             val replyIntent = Intent()
-           // val replyIntent1 = Intent()
             if(TextUtils.isEmpty(editWordView.text)){
                 setResult(Activity.RESULT_CANCELED,replyIntent)
             }else{
                 val word = editWordView.text.toString()
-               // val word1 = editWordView1.text.toString()
                 replyIntent.putExtra(EXTRA_REPLY,word)
-              //  replyIntent.putExtra(EXTRA_REPLY,word) // зробить ще один ключ
+                setResult(Activity.RESULT_OK,replyIntent)
+
+                val description = editWordView1.text.toString()
+                replyIntent.putExtra(EXTRA_REPLY1,description)
                 setResult(Activity.RESULT_OK,replyIntent)
             }
             finish()
@@ -38,6 +39,7 @@ class NewWordActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
+        const val EXTRA_REPLY1 = "com.example.android.wordlistsql.REPLY1"
     }
 
 }

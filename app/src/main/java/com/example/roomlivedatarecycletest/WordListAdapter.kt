@@ -15,9 +15,9 @@ class WordListAdapter: ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsCo
         private val wordItemView: TextView = itemView.findViewById(R.id.textView)
         private val wordItemView1: TextView = itemView.findViewById(R.id.textView1)
 
-        fun bind (text: String){
+        fun bind (text: String,text1: String){
             wordItemView.text = text
-          //  wordItemView1.text = text1
+            wordItemView1.text = text1
         }
         companion object{
             fun create(parent: ViewGroup): WordViewHolder{
@@ -45,8 +45,7 @@ class WordListAdapter: ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsCo
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val current = getItem(position)
-       // val current1 = getItem(position)
-        holder.bind(current.word)
+        holder.bind(current.word,current.description)
     }
 
 

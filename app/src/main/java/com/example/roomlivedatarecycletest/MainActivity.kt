@@ -13,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private val newWordActivityRequestCode = 1
+    private val newWordActivityRequestCode1 = 2
 
     private val wordViewModel: WordViewModel by viewModels{
         WordViewModelFactory((application as WordsApplication).repository)
@@ -36,22 +37,21 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener{
             val intent = Intent(this@MainActivity, NewWordActivity::class.java)
             startActivityForResult(intent, newWordActivityRequestCode)
-
         }
-
-
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.getStringExtra(NewWordActivity.EXTRA_REPLY)?.let { reply ->
-                val word = Word(reply)
-                val word1 = Word(reply)
-                wordViewModel.insert(word)
 
-            }
+                var word: Word
+                intentData?.getStringExtra(NewWordActivity.EXTRA_REPLY1)?.let { reply1 ->
+                    word = Word(reply,reply1)
+                    wordViewModel.insert(word)
 
+                }
+                   }
         } else {
             Toast.makeText(
                 applicationContext,
@@ -60,5 +60,4 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
     }
-
 }
