@@ -16,45 +16,47 @@ import kotlinx.coroutines.launch
 
     abstract fun wordDao(): WordDao
 
-    private class WordDatabaseCallback(private val scope: CoroutineScope): RoomDatabase.Callback(){
+    private class WordDatabaseCallback(private val scope: CoroutineScope) :
+        RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
-            INSTANCE?.let { database->
+            INSTANCE?.let { database ->
                 scope.launch {
                     var wordDao = database.wordDao()
                     wordDao.deleteAll()
-                    var word = Word("word","description")
+                    var word = Word(null,"word", "description")
                     wordDao.insert(word)
                 }
             }
         }
     }
-    companion object{
-        val MIGRATION_1_2 = object : Migration(1,2){
-            override fun migrate(database: SupportSQLiteDatabase) {
 
+    companion object {
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE word_table ADD COLUMN description STRING")
             }
         }
+
         // Singleton prevents multiple instances of database opening at the
         // same time.
         @Volatile
         private var INSTANCE: WordRoomDatabase? = null
 
-        fun getDatabase(context: Context,scope: CoroutineScope): WordRoomDatabase{
+        fun getDatabase(context: Context, scope: CoroutineScope): WordRoomDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
-         return INSTANCE ?: synchronized(this){
-             val instance = Room.databaseBuilder(
-                 context.applicationContext,
-                 WordRoomDatabase::class.java,
-                 "word_database"
-             ).addMigrations(MIGRATION_1_2)
-                 .fallbackToDestructiveMigration()
-                 .addCallback(WordDatabaseCallback(scope))
-                 .build()
-            INSTANCE = instance
-             return instance
-         }
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    WordRoomDatabase::class.java,
+                    "word_database"
+                ).addMigrations(MIGRATION_1_2)
+                    .addCallback(WordDatabaseCallback(scope))
+                    .build()
+                INSTANCE = instance
+                return instance
+            }
         }
     }
-}
+ }

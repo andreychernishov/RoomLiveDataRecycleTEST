@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 class NewWordActivity : AppCompatActivity() {
 
     private lateinit var editWordView: EditText
     private lateinit var editWordView1: EditText
+    private lateinit var button: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,21 +21,25 @@ class NewWordActivity : AppCompatActivity() {
 
         editWordView = findViewById(R.id.edit_word)
         editWordView1 = findViewById(R.id.edit_word1)
-        val button: Button = findViewById(R.id.button_save)
+        button = findViewById(R.id.button_save)
+
         button.setOnClickListener {
             val replyIntent = Intent()
-            if(TextUtils.isEmpty(editWordView.text)){
-                setResult(Activity.RESULT_CANCELED,replyIntent)
-            }else{
-                val word = editWordView.text.toString()
-                replyIntent.putExtra(EXTRA_REPLY,word)
-                setResult(Activity.RESULT_OK,replyIntent)
-
-                val description = editWordView1.text.toString()
-                replyIntent.putExtra(EXTRA_REPLY1,description)
-                setResult(Activity.RESULT_OK,replyIntent)
+            if(TextUtils.isEmpty(editWordView.text) || TextUtils.isEmpty(editWordView1.text)){
+                Toast.makeText(
+                    applicationContext,
+                    "Enter the fields",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-            finish()
+            else{
+                val word = editWordView.text.toString()
+                val description = editWordView1.text.toString()
+                replyIntent.putExtra(EXTRA_REPLY,word)
+                replyIntent.putExtra(EXTRA_REPLY1,description)
+                setResult(RESULT_OK,replyIntent)
+                finish()
+            }
         }
     }
 

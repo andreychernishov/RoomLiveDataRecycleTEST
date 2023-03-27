@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/RoomLiveDataRecycleTEST/app/src/main/res/layout/activity_content.xml" value="0.15628166160081053" />
         <entry key="..\:/RoomLiveDataRecycleTEST/app/src/main/res/layout/activity_main.xml" value="0.2504528985507246" />
         <entry key="..\:/RoomLiveDataRecycleTEST/app/src/main/res/layout/activity_new_word.xml" value="0.2504528985507246" />
+        <entry key="..\:/RoomLiveDataRecycleTEST/app/src/main/res/layout/activity_update.xml" value="0.32135416666666666" />
         <entry key="..\:/RoomLiveDataRecycleTEST/app/src/main/res/layout/recyclerview_item.xml" value="0.2504528985507246" />
       </map>
     </option>
