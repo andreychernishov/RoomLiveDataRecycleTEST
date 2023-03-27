@@ -8,16 +8,25 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class WordListAdapter: ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsComparator()) {
+class WordListAdapter(private val listener: Listener): ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsComparator()) {
 
 
     class WordViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val wordItemView: TextView = itemView.findViewById(R.id.textView)
         private val wordItemView1: TextView = itemView.findViewById(R.id.textView1)
+        private val wordItemView3: TextView = itemView.findViewById(R.id.id)
 
-        fun bind (text: String,text1: String){
+        fun bind (id: Long?, text: String, text1: String, listener: Listener){
+            wordItemView3.text = id?.toInt().toString()
             wordItemView.text = text
             wordItemView1.text = text1
+
+            itemView.setOnClickListener {
+                listener.itemOnClick(Word(
+                    wordItemView3.text.toString().toLong(),
+                    wordItemView.text.toString(),
+                    wordItemView1.text.toString()))
+            }
         }
         companion object{
             fun create(parent: ViewGroup): WordViewHolder{
@@ -35,17 +44,18 @@ class WordListAdapter: ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsCo
         override fun areContentsTheSame(oldItem: Word, newItem: Word): Boolean {
             return oldItem.word == newItem.word
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         return WordViewHolder.create(parent)
-
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.word,current.description)
+        holder.bind(current.id,current.word,current.description, listener)
+    }
+    interface Listener{
+        fun itemOnClick(item: Word)
     }
 
 
