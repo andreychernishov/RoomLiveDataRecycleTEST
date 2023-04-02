@@ -24,16 +24,16 @@ class UpdateActivity : AppCompatActivity(), Serializable1 {
         saveUpdate = findViewById(R.id.save_update)
         updateBankName = findViewById(R.id.update_word)
         updateDescription= findViewById(R.id.update_word1)
+
         updateBankName.setText( item.word)
         updateDescription.setText(item.description)
-
 
         saveUpdate.setOnClickListener {
             val itemId = item.id
             val bankName = updateBankName.text.toString()
             val description = updateDescription.text.toString()
             finish().apply {
-                startActivity(Intent(this@UpdateActivity,Content::class.java).apply {
+                startActivity(Intent(this@UpdateActivity,MainActivity::class.java).apply {
                     putExtra("key111",updateWord(itemId!!,bankName,description))
                 })
             }

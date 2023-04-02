@@ -25,13 +25,9 @@ class Content : AppCompatActivity(),Serializable1{
         contentTv1 = findViewById(R.id.content_description)
         changeInfo = findViewById(R.id.change_bank_name_btn)
 
-        if (isClicked == false){
-            startUpdate(item!!)
-            contentTv.text = item.word
-            contentTv1.text = item.description
-        }else{
-            updateContent()
-        }
+        contentTv.text = item?.word
+        contentTv1.text = item?.description
+        startUpdate(item!!)
     }
 
    private fun startUpdate(item: Word){
