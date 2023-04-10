@@ -14,5 +14,7 @@ class WordsApplication: Application() {
     private val database by lazy{
         WordRoomDatabase.getDatabase(this, applicationScope)
     }
-    val repository by lazy { WordRepository(database.wordDao()) }
+    val repository by lazy {
+        WordRepository(database.wordDao())
+    }
 }

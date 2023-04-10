@@ -9,7 +9,7 @@ import androidx.activity.viewModels
 import java.io.Serializable as Serializable1
 
 lateinit var updateBankName: EditText
-lateinit var updateDescription: EditText
+lateinit var updateMoney: EditText
 lateinit var saveUpdate: Button
 class UpdateActivity : AppCompatActivity(), Serializable1 {
     private val wordViewModel: WordViewModel by viewModels{
@@ -23,24 +23,25 @@ class UpdateActivity : AppCompatActivity(), Serializable1 {
 
         saveUpdate = findViewById(R.id.save_update)
         updateBankName = findViewById(R.id.update_word)
-        updateDescription= findViewById(R.id.update_word1)
+        updateMoney= findViewById(R.id.update_word1)
 
-        updateBankName.setText( item.word)
-        updateDescription.setText(item.description)
+        updateBankName.setText(item.word)
+        updateMoney.setText(item.money.toString())
 
         saveUpdate.setOnClickListener {
             val itemId = item.id
             val bankName = updateBankName.text.toString()
-            val description = updateDescription.text.toString()
+            val money = updateMoney.text.toString()
+            val history = "${item.money} to ${updateMoney.text}"
             finish().apply {
                 startActivity(Intent(this@UpdateActivity,MainActivity::class.java).apply {
-                    putExtra("key111",updateWord(itemId!!,bankName,description))
+                    putExtra("key111",updateWord(itemId!!,bankName, money.toFloat(), history))
                 })
             }
         }
     }
-    private fun updateWord(id: Long, bankName: String,description: String): Word{
-        val updateInfo = Word(id,bankName,description)
+    private fun updateWord(id: Long, bankName: String, money: Float, history: String): Word{
+        val updateInfo = Word(id,bankName,money,history)
         wordViewModel.update(updateInfo)
         return updateInfo
         }
