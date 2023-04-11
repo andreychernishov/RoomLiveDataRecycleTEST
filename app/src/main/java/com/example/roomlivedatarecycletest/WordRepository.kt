@@ -23,8 +23,6 @@ class WordRepository(private val wordDao: WordDao): ViewModel() {
     suspend fun insert(word: Word){
         wordDao.insert(word)
     }
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
     suspend fun update(word: Word){
         wordDao.update(word)
     }

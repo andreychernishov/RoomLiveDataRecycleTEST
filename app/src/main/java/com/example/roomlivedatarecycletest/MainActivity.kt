@@ -49,14 +49,14 @@ class MainActivity : AppCompatActivity(), WordListAdapter.Listener, Serializable
                 result.data?.getStringExtra(NewWordActivity.EXTRA_REPLY)?.let { reply ->
                     var word: Word
                     result.data?.getStringExtra(NewWordActivity.EXTRA_REPLY1)?.let { reply1 ->
-                        word = Word(null,reply,reply1.toFloat(),null)
+                        word = Word(null,reply,reply1.toFloat(),"")
                         wordViewModel.insert(word)
                     }
                 }
             }else {
                 Toast.makeText(
                     applicationContext,
-                    "www",
+                    "Canceled",
                     Toast.LENGTH_LONG
                 ).show()
             }

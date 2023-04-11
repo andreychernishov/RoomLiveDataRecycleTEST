@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
                 scope.launch {
                     var wordDao = database.wordDao()
                     wordDao.deleteAll()
-                    var word = Word(null,"word",2000f,null)
+                    var word = Word(null, "word", 2000f, null)
                     wordDao.insert(word)
                 }
             }
@@ -32,17 +32,17 @@ import kotlinx.coroutines.launch
     }
 
     companion object {
-        val MIGRATION_1_2 = object : Migration(1, 2) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE word_table ADD COLUMN money FLOAT")
-            }
-        }
-        val MIGRATION_2_3 = object : Migration(2,3){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE word_table ADD COLUMN history ")
-            }
+//        private val MIGRATION_1_2 = object : Migration(1, 2) {
+//            override fun migrate(database: SupportSQLiteDatabase) {
+//                database.execSQL("ALTER TABLE word_table ADD COLUMN money FLOAT")
+//            }
+//        }
+//        private val MIGRATION_2_3 = object : Migration(2, 3) {
+//            override fun migrate(database: SupportSQLiteDatabase) {
+//                database.execSQL("ALTER TABLE word_table ADD COLUMN history ")
+//            }
+//        }
 
-        }
         // Singleton prevents multiple instances of database opening at the
         // same time.
         @Volatile
@@ -56,12 +56,11 @@ import kotlinx.coroutines.launch
                     context.applicationContext,
                     WordRoomDatabase::class.java,
                     "word_database"
-                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3)
-                    .addCallback(WordDatabaseCallback(scope))
+                ).addCallback(WordDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
                 return instance
             }
         }
     }
- }
+}
