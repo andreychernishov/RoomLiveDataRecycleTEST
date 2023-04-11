@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.io.Serializable as Serializable1
 
-
 lateinit var changeInfo: Button
 lateinit var contentTv: TextView
 lateinit var contentTv1: TextView
@@ -27,6 +26,7 @@ class Content : AppCompatActivity(),Serializable1{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
+
         recyclerInit()
 
         itemWord = intent.getSerializableExtra("example_key") as Word
@@ -37,6 +37,7 @@ class Content : AppCompatActivity(),Serializable1{
 
         contentTv.text = itemWord?.word
         contentTv1.text = itemWord?.money.toString()
+
         startUpdate(itemWord!!)
     }
 
@@ -49,7 +50,6 @@ class Content : AppCompatActivity(),Serializable1{
         when(item.itemId){
             R.id.menu_del ->{
                 deleteItem()
-                Toast.makeText(this,"${itemWord.word} deleted", Toast.LENGTH_SHORT).show()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -59,6 +59,7 @@ class Content : AppCompatActivity(),Serializable1{
         val builder = AlertDialog.Builder(this)
         builder.setPositiveButton("Yes"){_, _->
             wordViewModel.delete(itemWord)
+            Toast.makeText(this,"${itemWord.word} deleted", Toast.LENGTH_SHORT).show()
             finish()
         }
         builder.setNegativeButton("No"){_, _ ->}

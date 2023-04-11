@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class HistoryListAdapter(): ListAdapter<Word, HistoryListAdapter.HistoryViewHolder>(WordsComparator()) {
+class HistoryListAdapter: ListAdapter<Word, HistoryListAdapter.HistoryViewHolder>(WordsComparator()) {
 
     class HistoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val historyTv: TextView = itemView.findViewById(R.id.history_tv)
