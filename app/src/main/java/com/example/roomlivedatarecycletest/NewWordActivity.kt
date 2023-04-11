@@ -34,9 +34,9 @@ class NewWordActivity : AppCompatActivity() {
             }
             else{
                 val word = editWordView.text.toString()
-                val description = editWordView1.text.toString()
+                val money = editWordView1.text.toString()
                 replyIntent.putExtra(EXTRA_REPLY,word)
-                replyIntent.putExtra(EXTRA_REPLY1,description)
+                replyIntent.putExtra(EXTRA_REPLY1,money)
                 setResult(RESULT_OK,replyIntent)
                 finish()
             }

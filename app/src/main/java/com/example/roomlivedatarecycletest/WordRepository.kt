@@ -28,4 +28,10 @@ class WordRepository(private val wordDao: WordDao): ViewModel() {
     suspend fun update(word: Word){
         wordDao.update(word)
     }
+    suspend fun deleteItem(word: Word){
+        wordDao.delete(word)
+    }
+    suspend fun deleteAll(){
+        wordDao.deleteAll()
+    }
 }

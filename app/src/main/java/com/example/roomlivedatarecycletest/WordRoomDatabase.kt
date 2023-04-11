@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
-@Database(entities = [Word::class], version = 2)
+@Database(entities = [Word::class], version = 3)
  abstract class WordRoomDatabase: RoomDatabase() {
 
     abstract fun wordDao(): WordDao
@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
                 scope.launch {
                     var wordDao = database.wordDao()
                     wordDao.deleteAll()
-                    var word = Word(null,"word", "description")
+                    var word = Word(null,"word",2000f,null)
                     wordDao.insert(word)
                 }
             }
@@ -34,10 +34,15 @@ import kotlinx.coroutines.launch
     companion object {
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE word_table ADD COLUMN description STRING")
+                database.execSQL("ALTER TABLE word_table ADD COLUMN money FLOAT")
             }
         }
+        val MIGRATION_2_3 = object : Migration(2,3){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE word_table ADD COLUMN history ")
+            }
 
+        }
         // Singleton prevents multiple instances of database opening at the
         // same time.
         @Volatile
@@ -51,7 +56,7 @@ import kotlinx.coroutines.launch
                     context.applicationContext,
                     WordRoomDatabase::class.java,
                     "word_database"
-                ).addMigrations(MIGRATION_1_2)
+                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .addCallback(WordDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance

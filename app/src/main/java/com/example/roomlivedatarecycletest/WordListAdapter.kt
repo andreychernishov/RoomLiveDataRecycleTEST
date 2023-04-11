@@ -10,22 +10,22 @@ import androidx.recyclerview.widget.RecyclerView
 
 class WordListAdapter(private val listener: Listener): ListAdapter<Word, WordListAdapter.WordViewHolder>(WordsComparator()) {
 
-
     class WordViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val wordItemView: TextView = itemView.findViewById(R.id.textView)
         private val wordItemView1: TextView = itemView.findViewById(R.id.textView1)
         private val wordItemView3: TextView = itemView.findViewById(R.id.id)
 
-        fun bind (id: Long?, text: String, text1: String, listener: Listener){
+        fun bind (id: Long?, text: String?, text1: Float?, listener: Listener){
             wordItemView3.text = id?.toInt().toString()
             wordItemView.text = text
-            wordItemView1.text = text1
+            wordItemView1.text = text1.toString()
 
             itemView.setOnClickListener {
                 listener.itemOnClick(Word(
                     wordItemView3.text.toString().toLong(),
                     wordItemView.text.toString(),
-                    wordItemView1.text.toString()))
+                    wordItemView1.text.toString().toFloat(),
+                    null ))
             }
         }
         companion object{
@@ -52,11 +52,9 @@ class WordListAdapter(private val listener: Listener): ListAdapter<Word, WordLis
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.id,current.word,current.description, listener)
+        holder.bind(current.id,current.word,current.money, listener)
     }
     interface Listener{
         fun itemOnClick(item: Word)
     }
-
-
 }
